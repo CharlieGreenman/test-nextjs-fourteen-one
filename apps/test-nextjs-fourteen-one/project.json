@@ -1,0 +1,58 @@
+{
+  "name": "test-nextjs-fourteen-one",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/test-nextjs-fourteen-one",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/test-nextjs-fourteen-one"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/test-nextjs-fourteen-one"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "test-nextjs-fourteen-one:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "test-nextjs-fourteen-one:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "test-nextjs-fourteen-one:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "test-nextjs-fourteen-one:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/test-nextjs-fourteen-one/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": []
+}
